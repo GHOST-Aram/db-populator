@@ -1,6 +1,6 @@
 import { User } from "./User.model";
 import { Post } from "./Post.model";
-import { fetchData, formatPostText } from "./utils"
+import { fetchData, formatText } from "./utils"
 import { images } from "./data";
 import mongoose from "mongoose";
 import 'dotenv/config'
@@ -26,7 +26,7 @@ if(connectString){
                             imageCount = 0
         
                         const post = new Post({
-                            post_content: formatPostText(data[dataCount].body),
+                            post_content: formatText(data[dataCount].body),
                             author: author._id,
                             media_url: images[imageCount]
                         })
@@ -41,13 +41,7 @@ if(connectString){
                     })
                 }
 
-            
-
-            
-            
-
-
-
+       
         }).catch(error => console.log(
             'Fetch Failed: ', error.message
         ))
