@@ -8,3 +8,7 @@ export const fetchData = async(url: string) =>{
 export const createPictureUrl = (index: number): string =>{
     return `https://randomuser.me/api/portraits/women/${index}.jpg`
 }
+
+export const formatPostText = (text: string): string =>{
+    return text.charAt(0).toUpperCase() + text.slice(1)
+}
