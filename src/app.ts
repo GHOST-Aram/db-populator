@@ -1,24 +1,42 @@
-import { User } from "./User.model"
-import { connectToDB, disconnectFromDB } from "./db"
-import { getRawData } from "./utils"
-import { Post } from "./Post.model"
+import { connectToDB, disconnectFromDB } from "./utils/db"
+import { getRawData } from "./utils/data"
+import { populateComments } from "./comments/comments-populator"
+import { findAllUsers, populateUsers } from "./users/user-data"
+import { populatePosts, findAllPosts } from "./posts/posts-data"
 import 'dotenv/config'
-import { populateComments } from "./comments-populator"
 
 
 (async()=>{
     const connectString = ''
     if(connectString){
         try {
-            const comments:any = await getRawData(
+            await connectToDB(connectString)
+
+            const rawCommentsData:any = await getRawData(
                 'https://jsonplaceholder.typicode.com/comments'
             )
+            const rawUsersData:any = await getRawData(
+                'https://jsonplaceholder.typicode.com/users'
+            )
+            const rawPostsData:any = await getRawData(
+                'https://jsonplaceholder.typicode.com/posts'
+            )
 
-            await connectToDB(connectString)
-            const authors = await User.find().select('_id')
-            const posts = await Post.find().select('id')
+            await populateUsers(rawUsersData)
+            
+            const authors = await findAllUsers()
+            await populatePosts({
+                authors: authors,
+                data: rawPostsData
+            })
+            
+            const posts = await findAllPosts()
+            await populateComments({
+                comments: rawCommentsData, 
+                posts, 
+                authors
+            })
 
-            await populateComments({comments, posts, authors})
             disconnectFromDB()
             
         } catch (error:any) {

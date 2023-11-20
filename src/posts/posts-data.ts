@@ -1,9 +1,9 @@
-import { HydratedUserDoc } from "./User.model";
+import { HydratedUserDoc } from "../users/User.model";
 import { Post } from "./Post.model";
-import { formatText } from "./utils"
-import { images } from "./data";
+import { formatText } from "../utils/formatter"
+import { images } from "../utils/data";
 import { Types } from "mongoose";
-import { dbIsConnected } from "./db";
+import { dbIsConnected } from "../utils/db";
             
 export const createPost = (
     text: string, authorId: Types.ObjectId, imageIndex: number
@@ -15,8 +15,11 @@ export const createPost = (
     })
 }
 
+export const findAllPosts = async() =>{
+    return await Post.find().select('id')
+}
 export const populatePosts = async(
-    authors: HydratedUserDoc[], data:any
+    {authors, data }:{authors: HydratedUserDoc[], data:any}
 ) =>{
     let dataCount = 0
     let imageCount = 0
@@ -35,7 +38,7 @@ export const populatePosts = async(
             const post = createPost(
                 data[dataCount].body, author._id, imageCount
             )
-            
+
             console.log(`post ${dataCount+1} id: ${post.id}`)
             imageCount ++
             dataCount ++

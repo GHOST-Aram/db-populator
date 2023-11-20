@@ -1,8 +1,8 @@
-import { HydratedUserDoc } from "./User.model";
-import { HydratedPostDoc, Post } from "./Post.model";
+import { HydratedUserDoc } from "../users/User.model";
+import { HydratedPostDoc, Post } from "../posts/Post.model";
 import { Comment, IComment } from './Comment.model'
-import { formatText } from "./utils"
-import { dbIsConnected } from "./db";
+import { formatText } from "../utils/formatter"
+import { dbIsConnected } from "../utils/db";
 
 
 interface CommentsPopulationData{

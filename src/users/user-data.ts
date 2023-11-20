@@ -1,7 +1,7 @@
 import { User } from "./User.model";
-import { createPictureUrl } from "./utils"
-import { images } from "./data";
-import { dbIsConnected } from "./db"
+import { createPictureUrl } from "../utils/formatter"
+import { images } from "../utils/data";
+import { dbIsConnected } from "../utils/db"
 
 const createUser = (userInfo:any, index: number) =>{
     return new User({
@@ -26,4 +26,8 @@ export const populateUsers = async(data:any[])=>{
             user.save()
         }
     } )
+}
+
+export const findAllUsers = async() =>{
+    return await User.find().select('_id')
 }
