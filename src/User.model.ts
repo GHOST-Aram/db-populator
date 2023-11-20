@@ -17,7 +17,7 @@ export interface IUser{
     friends: ObjectId[]
     requests_sent: ObjectId[]
     requests_received: ObjectId[]
-    createdAt: Date
+    createdAt?: Date
 
 }
 
@@ -102,7 +102,7 @@ userSchema.virtual('name').get(function(){
 userSchema.pre('save', async function(next){
     const hashepassword = await hash(this.password, 10)
     this.password = hashepassword
-    
+
     next()
 })
 

@@ -8,7 +8,7 @@ export interface IPost{
     media_url: string
     media_file: Buffer
     author: ObjectId
-    createdAt: Date
+    createdAt?: Date
 }
 
 type PostModel = Model<IPost>

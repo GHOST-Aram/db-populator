@@ -3,7 +3,7 @@ import { Model, Schema, model, Types, HydratedDocument } from "mongoose"
 export interface IComment{
     author: Types.ObjectId
     text: string,
-    createdAt: Date
+    createdAt?: Date
 
 }
 
