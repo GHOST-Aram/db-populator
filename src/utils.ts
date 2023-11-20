@@ -12,3 +12,4 @@ export const createPictureUrl = (index: number): string =>{
 export const formatText = (text: string): string =>{
     return text.charAt(0).toUpperCase() + text.slice(1)
 }
+
