@@ -1,12 +1,12 @@
 # How to Populate DB with Test Data.
-Testing is important in the software development life cycle. During the development process, you will ocassionally want to test your application with some data. One way to acquire test data is through manual entry. The problem with manual entry is that its limited.  There is only so much data you can enter manually. A better option is to load the data to your database using a different program. This article will show you how to write a program to upload test dta to your test database.
+Testing is important in the software development life cycle. During the development process, you will ocassionally want to test your application against real data. One way to acquire test data is through manual entry. The problem with manual entry is that its limited.  There is only so much data you can enter manually. A better option is to load the data to your database using a program separate from your application. In this article we will learn how to write a program to upload test data to a test database.
 
 To learn smoothly from this article, you should have basic knowledge of the following.
-- Writing programs with Node JS
+- Creating simple programs with Node JS
 - Working with Mongo DB
-- Working with a database abstration library. This article uses Mongoose.
+- Working with a database abstration library. We will use Mongoose in this article.
 
-We will learn how to upload test data o the databse by performing the following actions:
+We will learn how to upload test data to the databse by performing the following actions:
 
 1. Create data model.
 2. Fetch raw data from an API.
@@ -14,7 +14,7 @@ We will learn how to upload test data o the databse by performing the following 
 4. Populate the database with documents.
 
 ## 1. Create data model
-Data models are important in loading test data to the database. Models define the shape and properties of the data we will upload. The shape of the data you upload should be compatible with the specifications of our application. You should define the exact same models that you defined for your application. In this article, we will assume a todos model.
+Data models are important in loading test data to the database. Models define the shape and properties of the data to be uploaded. The shape of the data you upload should be compatible with the specifications of our application. You should define the exact same models that you defined for your application. In this article, we will assume a todos model.
 
 To define a model we need to install Mongoose using the command below.
 
@@ -22,7 +22,7 @@ To define a model we need to install Mongoose using the command below.
 npm install mongoose
 ```
 
-The we define the `Todo` model as follows.
+Then we define the `Todo` model as follows.
 
 ```
 import { Model, Schema, model } from "mongoose"
@@ -42,12 +42,14 @@ const todoSchema = new Schema<ITodo, TodoModel>({
 export const Todo = model<ITodo, TodoModel>('Todo', todoSchema)
 ```
 
-We will use the above model to upload data to the database. Next, we fetch the raw data that we will use to creat documents from the model.
+We will use the above model to upload data to the database. 
+
+Next, we fetch the raw data that we will use to creat documents from the model.
 
 ## 2. Fecth data
-In the previous step, we created a model for our data. In this section, we will get the raw data that we will use to create documents.We will fetch the raw data [this fake data API](https://jsonplaceholder.typicode.com).
+In the previous step, we created a model for our data. In this section, we will get the raw data that we will use to create documents. We will fetch the raw data [this fake data API](https://jsonplaceholder.typicode.com).
 
-Below is the code snippet for fetching the raw data.
+Below is the code snippet that fetches the raw data.
 
 ```
 (async() =>{
@@ -66,7 +68,7 @@ Below is the code snippet for fetching the raw data.
 After fetching the data from the API, let us connect the database in the next step before we can create documents.
 
 ## 3. Connect to the database.
-Before we begin to send data to the database, we need to connect to a MongoDB. Get the connection string for your database and connect to the database as shown in the code snippet below.
+Before we begin to send data to the database, we need to connect to a MongoDB. Get the connection string for your test database and connect to the database as shown in the code snippet below.
 
 ```
 import mongoose from "mongoose"
@@ -89,10 +91,10 @@ import mongoose from "mongoose"
 })()
 ```
 
-Now we have a database ready to receive our data, let us creat documents and save to the database in the next section.
+Now we have a database ready to receive our data, let us create documents and save them to the database in the next section.
 
 ## 4. Populate the database with documents.
-In this section we will create and save todo documents for each instance of the data in the `rawData` array. The code snippet below creates and saves data using the `Todo.create` method.
+In this section we will create and save `Todo` documents for each instance of the data in the `rawData` array. The code snippet below creates and saves data using the `Todo.create` method. We also log the `id` of the document we create. 
 
 ```
 import mongoose from "mongoose"
@@ -125,13 +127,13 @@ import { Todo } from "./model"
 
 })()
 ```
-The excution of the above program loads the target database with todo documents.
+The excution of the above program populates the target database with `Todo` documents.
 
 
-In conclusion, we have created a program that loads the data hat matches our model to te database. The program loads the data to the database by following simle steps listed below: 
+Finally, we have created a program that loads data that matches our model specification to the database. The program loads the data to the database by following steps listed below: 
 
-- Create a model that fits the shape of the test data.
-- Fetch test data from an API
+- Create a model that fits the shape of the expected test data.
+- Fetch raw data from the [jsonplaceholder API](https://jsonplaceholder.typicode.com/)
 - Iterate over the test data and create a document for each instance of the raw data using `Todo` model.
 - Save the documents to the database.
 
