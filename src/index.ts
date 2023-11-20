@@ -2,7 +2,6 @@ import { User } from "./User.model";
 import { Post } from "./Post.model";
 import { Comment } from './Comment.model'
 import { fetchData, formatText } from "./utils"
-import { images } from "./data";
 import mongoose from "mongoose";
 import 'dotenv/config'
 
