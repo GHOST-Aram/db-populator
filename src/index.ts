@@ -1,4 +1,4 @@
-import { connectToDB, disconnectFromDB } from "./utils/db"
+import { connectToDB } from "./utils/db"
 import { getRawData } from "./utils/data"
 import { populateComments } from "./comments/data-access"
 import { findAllUsers, populateUsers } from "./users/data-access"
@@ -37,8 +37,6 @@ import 'dotenv/config'
                 authors
             })
 
-            // disconnectFromDB()
-            
         } catch (error:any) {
             console.log(error.message)
         }

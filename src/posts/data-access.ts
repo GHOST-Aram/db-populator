@@ -46,7 +46,6 @@ export const populatePosts = async(
 
             console.log(`Post created ${dataCount+1} id: ${post.id}`)
             
-
             if(dbIsConnected()){
                 const savedPost = await post.save()
                 console.log(

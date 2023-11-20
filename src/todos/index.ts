@@ -19,6 +19,7 @@ import 'dotenv/config'
                 })
                 console.log(td.id)
             })
+
         } else{
             throw new Error('Coonection string not found')
         }
