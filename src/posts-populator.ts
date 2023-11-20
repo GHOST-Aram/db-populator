@@ -29,21 +29,23 @@ export const populatePosts = async(
                 imageCount = 0
 
             if(dataCount < data.length){
-                const post = createPost(
-                    data[dataCount].body, author._id, imageCount
-                )
-                console.log(`post ${dataCount+1} id: ${post.id}`)
+                return
             }
             
+            const post = createPost(
+                data[dataCount].body, author._id, imageCount
+            )
+            
+            console.log(`post ${dataCount+1} id: ${post.id}`)
             imageCount ++
             dataCount ++
             
 
-            // if(dbIsConnected()){
-            //     const savedPost = await post.save()
-            //     console.log(
-            //         `Post number ${dataCount+1} created with id: ${savedPost.id} `)
-            // }
+            if(dbIsConnected()){
+                const savedPost = await post.save()
+                console.log(
+                    `Post number ${dataCount+1} created with id: ${savedPost.id} `)
+            }
         })
     }
 }

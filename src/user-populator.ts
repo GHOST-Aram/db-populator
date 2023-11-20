@@ -1,7 +1,6 @@
 import { User } from "./User.model";
 import { createPictureUrl } from "./utils"
 import { images } from "./data";
-import { fetchData } from "./utils"
 import { dbIsConnected } from "./db"
 
 export const createUser = (userInfo:any, index: number) =>{
