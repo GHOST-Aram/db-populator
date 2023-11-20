@@ -12,13 +12,6 @@ export const images = [
     'https://images.unsplash.com/photo-1482285852444-5786d9152112?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 ]
 
-export const fetchData = async(url: string) =>{
-    const response = await fetch(url)
-    const data = await response.json()
-
-    return data
-}
-
 export const getRawData = async(url: string) =>{
     const response = await fetch(url)
     return await response.json()

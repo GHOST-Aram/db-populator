@@ -1,5 +1,5 @@
-import { HydratedUserDoc } from "../users/User.model";
-import { Post } from "./Post.model";
+import { HydratedUserDoc } from "../users/model";
+import { Post } from "./model";
 import { formatText } from "../utils/formatter"
 import { images } from "../utils/data";
 import { Types } from "mongoose";

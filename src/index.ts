@@ -1,8 +1,8 @@
 import { connectToDB, disconnectFromDB } from "./utils/db"
 import { getRawData } from "./utils/data"
-import { populateComments } from "./comments/comments-populator"
-import { findAllUsers, populateUsers } from "./users/user-data"
-import { populatePosts, findAllPosts } from "./posts/posts-data"
+import { populateComments } from "./comments/data-access"
+import { findAllUsers, populateUsers } from "./users/data-access"
+import { populatePosts, findAllPosts } from "./posts/data-access"
 import 'dotenv/config'
 
 

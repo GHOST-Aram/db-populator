@@ -1,6 +1,6 @@
-import { HydratedUserDoc } from "../users/User.model";
-import { HydratedPostDoc, Post } from "../posts/Post.model";
-import { Comment, IComment } from './Comment.model'
+import { HydratedUserDoc } from "../users/model";
+import { HydratedPostDoc, Post } from "../posts/model";
+import { Comment } from './model'
 import { formatText } from "../utils/formatter"
 import { dbIsConnected } from "../utils/db";
 

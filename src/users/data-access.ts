@@ -1,4 +1,4 @@
-import { User } from "./User.model";
+import { User } from "./model";
 import { createPictureUrl } from "../utils/formatter"
 import { images } from "../utils/data";
 import { dbIsConnected } from "../utils/db"
