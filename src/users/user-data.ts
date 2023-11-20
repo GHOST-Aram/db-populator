@@ -12,7 +12,7 @@ const createUser = (userInfo:any, index: number) =>{
         email: userInfo.email,
         city: userInfo.address.city,
         region: userInfo.address.street,
-        password: 'password'
+        password: 'password2023'
     })
 }
 

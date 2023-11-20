@@ -44,13 +44,13 @@ export const populatePosts = async(
             )
             dataCount ++
 
-            console.log(`post ${dataCount+1} id: ${post.id}`)
+            console.log(`Post created ${dataCount+1} id: ${post.id}`)
             
 
             if(dbIsConnected()){
                 const savedPost = await post.save()
                 console.log(
-                    `Post number ${dataCount+1} created with id: ${savedPost.id} `
+                    `Post saved id: ${savedPost.id} `
                 )
             }
         })

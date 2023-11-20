@@ -7,7 +7,7 @@ import 'dotenv/config'
 
 
 (async()=>{
-    const connectString = ''
+    const connectString = process.env.MONGODB_URI
     if(connectString){
         try {
             await connectToDB(connectString)
@@ -37,7 +37,7 @@ import 'dotenv/config'
                 authors
             })
 
-            disconnectFromDB()
+            // disconnectFromDB()
             
         } catch (error:any) {
             console.log(error.message)
