@@ -3,7 +3,7 @@ import { createPictureUrl } from "./utils"
 import { images } from "./data";
 import { dbIsConnected } from "./db"
 
-export const createUser = (userInfo:any, index: number) =>{
+const createUser = (userInfo:any, index: number) =>{
     return new User({
         first_name: userInfo.name.split(' ')[0],
         last_name: userInfo.name.split(' ')[1],
@@ -18,14 +18,12 @@ export const createUser = (userInfo:any, index: number) =>{
 
 export const populateUsers = async(data:any[])=>{
 
-    data.forEach((userInfo:any) =>{
-        let index = 0
+    data.forEach((userInfo:any, index:number) =>{
 
         const user = createUser(userInfo, index)
         
         if(dbIsConnected()){
             user.save()
         }
-        index++
     } )
 }
