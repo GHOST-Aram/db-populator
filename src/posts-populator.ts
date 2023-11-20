@@ -1,55 +1,49 @@
-import { User } from "./User.model";
+import { HydratedUserDoc } from "./User.model";
 import { Post } from "./Post.model";
-import { fetchData, formatText } from "./utils"
+import { formatText } from "./utils"
 import { images } from "./data";
-import mongoose from "mongoose";
-import 'dotenv/config'
-
-const connectString = process.env.MONGODB_URI
-if(connectString){
-    mongoose.connect(connectString).then(result =>{
-        console.log('Connected to DB')
-
-        fetchData('https://jsonplaceholder.typicode.com/posts')
-        .then(async(data: any) =>{
+import { Types } from "mongoose";
+import { dbIsConnected } from "./db";
             
-            const authors = await User.find()
-            let dataCount = 0
-            let imageCount = 0
+export const createPost = (
+    text: string, authorId: Types.ObjectId, imageIndex: number
+) =>{
+    return new Post({
+        post_content: formatText(text),
+        author: authorId,
+        media_url: images[imageIndex]
+    })
+}
 
+export const populatePosts = async(
+    authors: HydratedUserDoc[], data:any
+) =>{
+    let dataCount = 0
+    let imageCount = 0
 
-                for(let i = 0; i < data.length; i += 10){
-                    
-                    authors.forEach(async(author) =>{
+    for(let i = 0; i < data.length; i += 10){
         
-                        if (imageCount === images.length)
-                            imageCount = 0
-        
-                        const post = new Post({
-                            post_content: formatText(data[dataCount].body),
-                            author: author._id,
-                            media_url: images[imageCount]
-                        })
-                        
-                        const savedPost = await post.save()
+        authors.forEach(async(author) =>{
 
-                        imageCount ++
-                        dataCount ++
-                        
-                        console.log(`Post number ${dataCount+1} created with id: ${savedPost.id} `)
-                        
-                    })
-                }
+            if (imageCount === images.length)
+                imageCount = 0
 
-       
-        }).catch(error => console.log(
-            'Fetch Failed: ', error.message
-        ))
+            if(dataCount < data.length){
+                const post = createPost(
+                    data[dataCount].body, author._id, imageCount
+                )
+                console.log(`post ${dataCount+1} id: ${post.id}`)
+            }
+            
+            imageCount ++
+            dataCount ++
+            
 
-    }).catch(error => console.log(
-        'Failed to connect to DB: ', error.message
-    ))
-
-} else {
-    console.log('Connection string not found')
+            // if(dbIsConnected()){
+            //     const savedPost = await post.save()
+            //     console.log(
+            //         `Post number ${dataCount+1} created with id: ${savedPost.id} `)
+            // }
+        })
+    }
 }

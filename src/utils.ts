@@ -13,3 +13,8 @@ export const formatText = (text: string): string =>{
     return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
+export const getRawData = async(url: string) =>{
+    const response = await fetch(url)
+    return await response.json()
+}
+

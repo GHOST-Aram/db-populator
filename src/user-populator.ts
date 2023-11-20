@@ -16,10 +16,7 @@ export const createUser = (userInfo:any, index: number) =>{
         password: 'password'
     })
 }
-export const getRawUserData = async(url: string) =>{
-    const response = await fetch(url)
-    return await response.json()
-}
+
 export const populateUsers = async(data:any[])=>{
 
     data.forEach((userInfo:any) =>{
