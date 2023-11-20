@@ -1,6 +1,5 @@
 import { User } from "./User.model"
 import { connectToDB, disconnectFromDB } from "./db"
-import { populatePosts } from "./posts-populator"
 import { getRawData } from "./utils"
 import { Post } from "./Post.model"
 import 'dotenv/config'
@@ -8,10 +7,10 @@ import { populateComments } from "./comments-populator"
 
 
 (async()=>{
-    const connectString = process.env.MONGODB_URI
+    const connectString = ''
     if(connectString){
         try {
-            const data:any = await getRawData(
+            const comments:any = await getRawData(
                 'https://jsonplaceholder.typicode.com/comments'
             )
 
@@ -19,7 +18,7 @@ import { populateComments } from "./comments-populator"
             const authors = await User.find().select('_id')
             const posts = await Post.find().select('id')
 
-            await populateComments(data, posts, authors)
+            await populateComments({comments, posts, authors})
             disconnectFromDB()
             
         } catch (error:any) {
