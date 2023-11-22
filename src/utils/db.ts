@@ -5,7 +5,12 @@ export const dbIsConnected = (): boolean =>{
 }
 
 export const connectToDB = async(dbUri: string) =>{
-    mongoose.connect(dbUri)
+    await mongoose.connect(dbUri)
+    const db = mongoose.connection
+
+    db.on('error', 
+        console.error.bind(console, 'Mongo connection Error')
+    )
     console.log('Successfully conected to DB')
 }
 

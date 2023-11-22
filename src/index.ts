@@ -12,6 +12,8 @@ import 'dotenv/config'
         try {
             await connectToDB(connectString)
 
+         
+
             const rawCommentsData:any = await getRawData(
                 'https://jsonplaceholder.typicode.com/comments'
             )
